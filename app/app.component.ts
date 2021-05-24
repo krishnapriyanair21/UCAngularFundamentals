@@ -4,7 +4,7 @@ import { Component } from "@angular/core";
   selector: 'app-root',
   styleUrls: ['app.component.scss'],
   templateUrl: `
-    <div class = 'app'>
+    <div>
       {{title}}
     </div>
   `
