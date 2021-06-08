@@ -27,7 +27,9 @@ export class PassengerDashboardComponent implements OnInit{
   passengers: Passenger[];
   constructor(private passengerService: PassengerDashboardService){}
   ngOnInit(){
-    this.passengers = this.passengerService.getPassenger();
+    this.passengerService
+      .getPassenger()
+      .subscribe((data: Passenger[]) => this.passengers = data);
   }
   handleEdit(event) {
     this.passengers = this.passengers.map((passenger: Passenger) => {
