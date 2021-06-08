@@ -3,6 +3,8 @@ import { Passenger } from "./models/passenger.interface";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 // import 'rxjs/add/operator/toPromise';
 // to use toPromise change Observable return type to Promise
 // change .map to .then
@@ -18,6 +20,7 @@ export class PassengerDashboardService{
     return this.http
       .get(PASSENGER_API)
       .map((response: Response) => response.json())
+      .catch((error: any) => Observable.throw(error.json()));
   }
   updatePassenger(passenger: Passenger): Observable<Passenger> {
     let headers = new Headers({
@@ -29,10 +32,12 @@ export class PassengerDashboardService{
     return this.http
       .put(`${PASSENGER_API}/${passenger.id}`, passenger, options)
       .map((response: Response) => response.json())
+      .catch((error: any) => Observable.throw(error.json()));
   }
   removePassenger(passenger: Passenger): Observable<Passenger> {
     return this.http
       .delete(`${PASSENGER_API}/${passenger.id}`)
       .map((response: Response) => response.json())
+      .catch((error: any) => Observable.throw(error.json()));
   }
 }
