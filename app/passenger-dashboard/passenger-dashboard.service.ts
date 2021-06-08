@@ -3,6 +3,11 @@ import { Passenger } from "./models/passenger.interface";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/toPromise';
+// to use toPromise change Observable return type to Promise
+// change .map to .then
+// add .toPromise before .then
+// change in component as well
 
 const PASSENGER_API:string = "/api/passengers"
 @Injectable()
