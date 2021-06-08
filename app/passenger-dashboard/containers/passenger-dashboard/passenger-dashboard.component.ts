@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Passenger } from "../../models/passenger.interface";
-
+import { PassengerDashboardService } from "../../passenger-dashboard.service";
 @Component({
     selector: 'passenger-dashboard',
     styleUrls:['passenger-dashboard.component.scss'],
@@ -24,47 +24,32 @@ import { Passenger } from "../../models/passenger.interface";
 })
 
 export class PassengerDashboardComponent implements OnInit{
-    passengers: Passenger[];
-    constructor(){}
-    ngOnInit(){
-        this.passengers = [{
-            id: 1,
-            fullname: "Dave",
-            checkedIn: true,
-            checkInDate: 1490742000000,
-            children: [{name:"Buddy", age: 3}]
-        },{
-            id: 2,
-            fullname: "Dillon",
-            checkedIn: true,
-            checkInDate: 14884128000000,
-            children: [{name:"pickle", age: 7}]
-        },{
-            id: 3,
-            fullname: "Krishnapriya",
-            checkedIn: false,
-            checkInDate: null,
-            children:null
-        }, {
-            id: 4,
-            fullname: "Sparky",
-            checkedIn: false,
-            checkInDate: null,
-            children: [{ name: "Sammy", age: 1 }, { name: 'Sadie', age: 1 }]
-        }
-    ]
+  passengers: Passenger[];
+  constructor(private passengerService: PassengerDashboardService){}
+  ngOnInit(){
+    this.passengerService
+      .getPassengers()
+      .subscribe((data: Passenger[]) => this.passengers = data);
   }
   handleEdit(event) {
-    this.passengers = this.passengers.map((passenger: Passenger) => {
-      if (passenger.id === event.id) {
-        passenger = Object.assign({}, passenger, event);
-      }
-      return passenger;
+    this.passengerService
+      .updatePassenger(event)
+      .subscribe((data: Passenger) => {
+        this.passengers = this.passengers.map((passenger: Passenger) => {
+          if (passenger.id === event.id) {
+            passenger = Object.assign({}, passenger, event);
+          }
+          return passenger;
+        });
     })
   }
   handleRemove(event) {
-    this.passengers = this.passengers.filter((passenger: Passenger) => {
-      return passenger.id !== event.id;
-    })
+    this.passengerService
+      .removePassenger(event)
+      .subscribe((data: Passenger) => {
+        this.passengers = this.passengers.filter((passenger: Passenger) => {
+          return passenger.id !== event.id;
+        })
+      })
   }
 }
