@@ -1,11 +1,11 @@
 {
   "passengers": [
     {
+      "fullname": "Dave",
       "id": 1,
-      "fullname": "Dave Khalasi",
       "checkedIn": true,
-      "checkInDate": 1490742000000,
-      "baggage": "none"
+      "baggage": "none",
+      "checkInDate": 1490742000000
     },
     {
       "id": 2,
@@ -13,13 +13,15 @@
       "checkedIn": true,
       "checkInDate": 14884128000000,
       "baggage": ""
-    },{
+    },
+    {
       "id": 3,
       "fullname": "Krishnapriya",
       "checkedIn": false,
       "checkInDate": null,
       "baggage": ""
-    }, {
+    },
+    {
       "id": 4,
       "fullname": "Sparky",
       "checkedIn": false,
