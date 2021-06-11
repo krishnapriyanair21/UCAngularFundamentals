@@ -6,8 +6,6 @@ import { Baggage } from "../../models/baggage.interface";
   styleUrls: ['passenger-form.component.scss'],
   template: `
   <form #form="ngForm" novalidate>
-    {{ detail | json }}
-
     <div>
       Passenger name:
       <input
@@ -27,10 +25,14 @@ import { Baggage } from "../../models/baggage.interface";
       type="number"
       name="id"
       required
+      minlength="1"
       #id="ngModel"
       [ngModel]="detail?.id">
       <div *ngIf="id.errors?.required && id.dirty" class="error">
         Passenger ID is required
+      </div>
+      <div *ngIf="id.errors?.minlength && id.dirty" class="error">
+        Passenger ID minlegth is 1
       </div>
     </div>
 
@@ -64,10 +66,9 @@ import { Baggage } from "../../models/baggage.interface";
             </option>
           </select>
       </div>
-
-    <div>{{ form.value | json}}</div>
-    <div> Valid: {{ form.valid | json}}</div>
-    <div> Invalid: {{ form.invalid | json}}</div>
+    <button type = "submit" [disabled]="form.invalid">
+    Update Passenger
+    </button>
   </form>
   `
 })
