@@ -5,32 +5,32 @@ import { Passenger } from "../../models/passenger.interface";
   selector: 'passenger-detail',
   styleUrls: ['passenger-detail.component.scss'],
   template: `
-  <div>
-    <span
-    class="status"
-    [class.checked-in]="detail.checkedIn"> </span>
-    <div *ngIf="editing">
-      <input
-        type="text"
-        [value]="detail.fullname"
-        (input)="onNameChange(name.value)"
-        #name>
+    <div>
+      <span class="status" [class.checked-in]="detail.checkedIn"></span>
+      <div *ngIf="editing">
+        <input 
+          type="text" 
+          [value]="detail.fullname"
+          (input)="onNameChange(name.value)"
+          #name>
+      </div>
+      <div *ngIf="!editing">
+        {{ detail.fullname }}
+      </div>
+      <div class="date">
+        Check in date: 
+        {{ detail.checkInDate ? (detail.checkInDate | date: 'yMMMMd' | uppercase) : 'Not checked in' }}
+      </div>
+      <button (click)="toggleEdit()">
+        {{ editing ? 'Done' : 'Edit' }}
+      </button>
+      <button (click)="onRemove()">
+        Remove
+      </button>
+      <button (click)="goToPassenger()">
+        View
+      </button>
     </div>
-    <div *ngIf="!editing">
-      {{ detail.fullname }}
-    </div>
-    
-    <div class="date">
-      Check in date:
-      {{ detail.checkInDate ? (detail.checkInDate | date: 'yMMMMd' | uppercase) : 'Not checked in' }}
-    </div>
-    <button (click)="toggleEdit()">
-      {{ editing ? 'Done' : 'Edit'}}
-    </button>
-    <button (click)="onRemove()">
-      Remove
-    </button>
-  </div>
   `
 })
 export class PassengerDetailComponent implements OnChanges{
@@ -39,10 +39,13 @@ export class PassengerDetailComponent implements OnChanges{
   detail: Passenger;
 
   @Output()
-  edit: EventEmitter<any> = new EventEmitter();
+  edit: EventEmitter<Passenger> = new EventEmitter<Passenger>();
   
   @Output()
-  remove: EventEmitter<any> = new EventEmitter();
+  remove: EventEmitter<Passenger> = new EventEmitter<Passenger>();
+
+  @Output()
+  view: EventEmitter<Passenger> = new EventEmitter<Passenger>();
 
   editing: boolean = false;
   constructor() { }
@@ -56,6 +59,9 @@ export class PassengerDetailComponent implements OnChanges{
     this.detail.fullname = value;
   }
 
+  goToPassenger() {
+    this.view.emit(this.detail);
+  }
   toggleEdit() {
     if (this.editing) {
       this.edit.emit(this.detail);

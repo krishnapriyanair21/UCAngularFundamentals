@@ -8,11 +8,11 @@
       "checkInDate": 1490742000000
     },
     {
-      "id": 2,
       "fullname": "Dillon",
+      "id": 2,
       "checkedIn": true,
-      "checkInDate": 14884128000000,
-      "baggage": ""
+      "baggage": "",
+      "checkInDate": 1623704766856
     },
     {
       "id": 3,
