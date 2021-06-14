@@ -11,7 +11,8 @@ import { HomeComponent } from "./home.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: '**', component: NotFoundComponent}
+  // { path: '', redirectTo: 'passengers', pathMatch: 'full' },
+  { path: '**', component: NotFoundComponent }
 ];
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ const routes: Routes = [
     // angular modules
     BrowserModule,
     CommonModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { useHash: true}),
     //custom modules
     PassengerDashboardModule
   ],
